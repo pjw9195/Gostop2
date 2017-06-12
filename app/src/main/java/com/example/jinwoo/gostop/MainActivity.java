@@ -551,7 +551,7 @@ public class MainActivity extends AppCompatActivity {
         print();
 
         //패 옮기고 삭제하기
-        while(true){
+     /*   while(true){
             distinct = distinct1();
             System.out.printf("\n");
             System.out.printf("player1 turn");
@@ -626,6 +626,7 @@ public class MainActivity extends AppCompatActivity {
             center2();
             print();
         }
+        */
     }
 
 }

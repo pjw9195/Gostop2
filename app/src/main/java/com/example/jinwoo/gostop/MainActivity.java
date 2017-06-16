@@ -15,10 +15,10 @@ import static com.example.jinwoo.gostop.R.drawable.twelvefour;
 import static com.example.jinwoo.gostop.R.id.center;
 import static com.example.jinwoo.gostop.R.id.player1;
 import static com.example.jinwoo.gostop.R.id.player1pan;
+import static com.example.jinwoo.gostop.R.id.player1panpi;
 import static com.example.jinwoo.gostop.R.id.player2;
 import static com.example.jinwoo.gostop.R.id.player2pan;
-
-
+import static com.example.jinwoo.gostop.R.id.player2panpi;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         startGostop();
     }
 
@@ -192,9 +191,11 @@ public class MainActivity extends AppCompatActivity {
 
         return a;
     }
-
+    public static int swit = 2; //남의패 작동못하게 swit걸어둠
     ///////////// List프린트함수
     public void print() {
+        centerhand = 0;
+        playerhand = 0;
         LinearLayout de = (LinearLayout) findViewById(center);
         de.removeAllViews();
         de = (LinearLayout) findViewById(player1);
@@ -202,6 +203,10 @@ public class MainActivity extends AppCompatActivity {
         de = (LinearLayout) findViewById(player2);
         de.removeAllViews();
         de = (LinearLayout) findViewById(player1pan);
+        de.removeAllViews();
+        de = (LinearLayout) findViewById(player1panpi);
+        de.removeAllViews();
+        de = (LinearLayout) findViewById(player2panpi);
         de.removeAllViews();
         de = (LinearLayout) findViewById(player2pan);
         de.removeAllViews(); //layout초기화
@@ -213,13 +218,12 @@ public class MainActivity extends AppCompatActivity {
             ImageButton img = new ImageButton(this);
             img.setImageResource(imageArray[centerl1.best()]);
             img.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
+
             if (i == 0) {
                 img.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         centerhand = 0;
-                        System.out.println(playerhand);
-                        System.out.println(centerhand);
                     }
                 });
             } else if (i == 1) {
@@ -286,6 +290,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
             }
+
             iv.addView(img);
         }
 
@@ -297,102 +302,107 @@ public class MainActivity extends AppCompatActivity {
             ImageButton img = new ImageButton(this);
             img.setImageResource(imageArray[playerl1.best()]);
             img.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-            if (i == 0) {
-                img.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+            if(swit%2 == 0) {
+                if (i == 0) {
+                    img.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
 
-                        playerhand = 0;
-                        player1Gostop();
-                        System.out.println(playerhand);
-                        System.out.println(centerhand);
-                    }
-                });
-            } else if (i == 1) {
-                img.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        playerhand = 1;
-                        player1Gostop();
-                    }
-                });
-            } else if (i == 2) {
-                img.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        playerhand = 2;
-                        player1Gostop();
-                    }
-                });
-            } else if (i == 9) {
-                img.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        playerhand = 9;
-                        player1Gostop();
-                    }
-                });
-            } else if (i == 3) {
-                img.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        playerhand = 3;
-                        player1Gostop();
-                    }
-                });
-            } else if (i == 4) {
-                img.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        playerhand = 4;
-                        player1Gostop();
-                    }
-                });
-            } else if (i == 5) {
-                img.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        playerhand = 5;
-                        player1Gostop();
-                    }
-                });
-            } else if (i == 6) {
-                img.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        playerhand = 6;
-                        player1Gostop();
-                    }
-                });
-            } else if (i == 7) {
-                img.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        playerhand = 7;
-                        player1Gostop();
-                    }
-                });
-            } else if (i == 8) {
-                img.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        playerhand = 8;
-                        player1Gostop();
-                    }
-                });
+                            playerhand = 0;
+                            player1Gostop();
+                        }
+                    });
+                } else if (i == 1) {
+                    img.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            playerhand = 1;
+                            player1Gostop();
+                        }
+                    });
+                } else if (i == 2) {
+                    img.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            playerhand = 2;
+                            player1Gostop();
+                        }
+                    });
+                } else if (i == 9) {
+                    img.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            playerhand = 9;
+                            player1Gostop();
+                        }
+                    });
+                } else if (i == 3) {
+                    img.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            playerhand = 3;
+                            player1Gostop();
+                        }
+                    });
+                } else if (i == 4) {
+                    img.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            playerhand = 4;
+                            player1Gostop();
+                        }
+                    });
+                } else if (i == 5) {
+                    img.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            playerhand = 5;
+                            player1Gostop();
+                        }
+                    });
+                } else if (i == 6) {
+                    img.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            playerhand = 6;
+                            player1Gostop();
+                        }
+                    });
+                } else if (i == 7) {
+                    img.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            playerhand = 7;
+                            player1Gostop();
+                        }
+                    });
+                } else if (i == 8) {
+                    img.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            playerhand = 8;
+                            player1Gostop();
+                        }
+                    });
+                }
             }
-
             iv.addView(img);
-
-
         }
         for (int i = 0; i < player1panlist.size(); i++) {
             Month playerpanl1 = player1panlist.get(i);
-            LinearLayout iv = (LinearLayout) findViewById(player1pan);
-            ImageButton img = new ImageButton(this);
-            img.setImageResource(imageArray[playerpanl1.best()]);
-            img.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-            iv.addView(img);
+            if(playerpanl1.BasicScore>0){
+                LinearLayout iv = (LinearLayout) findViewById(player1panpi);
+                ImageButton img = new ImageButton(this);
+                img.setImageResource(imageArray[playerpanl1.best()]);
+                img.setLayoutParams(new LinearLayout.LayoutParams(80, 160));
+                iv.addView(img);
+            } else {
+                LinearLayout iv = (LinearLayout) findViewById(player1pan);
+                ImageButton img = new ImageButton(this);
+                img.setImageResource(imageArray[playerpanl1.best()]);
+                img.setLayoutParams(new LinearLayout.LayoutParams(80, 160));
+                iv.addView(img);
+            }
 
         }
         for (int i = 0; i < player2list.size(); i++) {
@@ -401,98 +411,108 @@ public class MainActivity extends AppCompatActivity {
             ImageButton img = new ImageButton(this);
             img.setImageResource(imageArray[playerl2.best()]);
             img.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-            if (i == 0) {
-                img.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        playerhand = 0;
-                        player1Gostop();
-                    }
-                });
-            } else if (i == 1) {
-                img.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        playerhand = 1;
-                        player2Gostop();
-                    }
-                });
-            } else if (i == 2) {
-                img.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        playerhand = 2;
-                        player2Gostop();
-                    }
-                });
-            } else if (i == 9) {
-                img.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        playerhand = 9;
-                        player2Gostop();
-                    }
-                });
-            } else if (i == 3) {
-                img.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        playerhand = 3;
-                        player2Gostop();
-                    }
-                });
-            } else if (i == 4) {
-                img.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        playerhand = 4;
-                        player2Gostop();
-                    }
-                });
-            } else if (i == 5) {
-                img.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        playerhand = 5;
-                        player2Gostop();
-                    }
-                });
-            } else if (i == 6) {
-                img.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        playerhand = 6;
-                        player2Gostop();
-                    }
-                });
-            } else if (i == 7) {
-                img.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        playerhand = 7;
-                        player2Gostop();
-                    }
-                });
-            } else if (i == 8) {
-                img.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        playerhand = 8;
-                        player2Gostop();
-                    }
-                });
+            if(swit%2 == 1 ) {
+                if (i == 0) {
+                    img.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            playerhand = 0;
+                            player1Gostop();
+                        }
+                    });
+                } else if (i == 1) {
+                    img.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            playerhand = 1;
+                            player2Gostop();
+                        }
+                    });
+                } else if (i == 2) {
+                    img.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            playerhand = 2;
+                            player2Gostop();
+                        }
+                    });
+                } else if (i == 9) {
+                    img.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            playerhand = 9;
+                            player2Gostop();
+                        }
+                    });
+                } else if (i == 3) {
+                    img.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            playerhand = 3;
+                            player2Gostop();
+                        }
+                    });
+                } else if (i == 4) {
+                    img.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            playerhand = 4;
+                            player2Gostop();
+                        }
+                    });
+                } else if (i == 5) {
+                    img.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            playerhand = 5;
+                            player2Gostop();
+                        }
+                    });
+                } else if (i == 6) {
+                    img.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            playerhand = 6;
+                            player2Gostop();
+                        }
+                    });
+                } else if (i == 7) {
+                    img.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            playerhand = 7;
+                            player2Gostop();
+                        }
+                    });
+                } else if (i == 8) {
+                    img.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            playerhand = 8;
+                            player2Gostop();
+                        }
+                    });
+                }
             }
             iv.addView(img);
         }
         for (int i = 0; i < player2panlist.size(); i++) {
             Month playerpanl2 = player2panlist.get(i);
-            LinearLayout iv = (LinearLayout) findViewById(player2pan);
-            ImageButton img = new ImageButton(this);
-            img.setImageResource(imageArray[playerpanl2.best()]);
-            img.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-            iv.addView(img);
+            if(playerpanl2.BasicScore>0){
+                LinearLayout iv = (LinearLayout) findViewById(player2panpi);
+                ImageButton img = new ImageButton(this);
+                img.setImageResource(imageArray[playerpanl2.best()]);
+                img.setLayoutParams(new LinearLayout.LayoutParams(80, 160));
+                iv.addView(img);
+            } else {
+                LinearLayout iv = (LinearLayout) findViewById(player2pan);
+                ImageButton img = new ImageButton(this);
+                img.setImageResource(imageArray[playerpanl2.best()]);
+                img.setLayoutParams(new LinearLayout.LayoutParams(80, 160));
+                iv.addView(img);
+            }
         }
-
+        swit++;
         System.out.printf("\n");
 /*
         System.out.printf("player 2 Score : %d \n", player2Score());
@@ -678,7 +698,6 @@ public class MainActivity extends AppCompatActivity {
                 Month center2 = centerlist.get(centerhand);
                 player2panlist.add(center2);
                 centerlist.remove(centerhand);
-
                 Month player2 = player2list.get(playerhand);
                 player2panlist.add(player2);
                 player2list.remove(playerhand);

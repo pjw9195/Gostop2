@@ -14,10 +14,14 @@ import static com.example.jinwoo.gostop.R.drawable.oneone;
 import static com.example.jinwoo.gostop.R.drawable.twelvefour;
 import static com.example.jinwoo.gostop.R.id.center;
 import static com.example.jinwoo.gostop.R.id.player1;
-import static com.example.jinwoo.gostop.R.id.player1pan;
+import static com.example.jinwoo.gostop.R.id.player1animal;
+import static com.example.jinwoo.gostop.R.id.player1dan;
+import static com.example.jinwoo.gostop.R.id.player1light;
 import static com.example.jinwoo.gostop.R.id.player1panpi;
 import static com.example.jinwoo.gostop.R.id.player2;
-import static com.example.jinwoo.gostop.R.id.player2pan;
+import static com.example.jinwoo.gostop.R.id.player2animal;
+import static com.example.jinwoo.gostop.R.id.player2dan;
+import static com.example.jinwoo.gostop.R.id.player2light;
 import static com.example.jinwoo.gostop.R.id.player2panpi;
 
 
@@ -191,9 +195,10 @@ public class MainActivity extends AppCompatActivity {
 
         return a;
     }
-    public static int swit = 2; //남의패 작동못하게 swit걸어둠
+    public static int swit = 1; //남의패 작동못하게 swit걸어둠
     ///////////// List프린트함수
     public void print() {
+        swit++;
         centerhand = 0;
         playerhand = 0;
         LinearLayout de = (LinearLayout) findViewById(center);
@@ -202,13 +207,21 @@ public class MainActivity extends AppCompatActivity {
         de.removeAllViews();
         de = (LinearLayout) findViewById(player2);
         de.removeAllViews();
-        de = (LinearLayout) findViewById(player1pan);
+        de = (LinearLayout) findViewById(player1light);
+        de.removeAllViews();
+        de = (LinearLayout) findViewById(player1dan);
+        de.removeAllViews();
+        de = (LinearLayout) findViewById(player1animal);
         de.removeAllViews();
         de = (LinearLayout) findViewById(player1panpi);
         de.removeAllViews();
         de = (LinearLayout) findViewById(player2panpi);
         de.removeAllViews();
-        de = (LinearLayout) findViewById(player2pan);
+        de = (LinearLayout) findViewById(player2light);
+        de.removeAllViews();
+        de = (LinearLayout) findViewById(player2dan);
+        de.removeAllViews();
+        de = (LinearLayout) findViewById(player2animal);
         de.removeAllViews(); //layout초기화
 
 
@@ -396,8 +409,23 @@ public class MainActivity extends AppCompatActivity {
                 img.setImageResource(imageArray[playerpanl1.best()]);
                 img.setLayoutParams(new LinearLayout.LayoutParams(80, 160));
                 iv.addView(img);
-            } else {
-                LinearLayout iv = (LinearLayout) findViewById(player1pan);
+            }
+             else if(playerpanl1.Dan>0){
+                LinearLayout iv = (LinearLayout) findViewById(player1dan);
+                ImageButton img = new ImageButton(this);
+                img.setImageResource(imageArray[playerpanl1.best()]);
+                img.setLayoutParams(new LinearLayout.LayoutParams(80, 160));
+                iv.addView(img);
+            }
+            else if(playerpanl1.Animal>0){
+                LinearLayout iv = (LinearLayout) findViewById(player1animal);
+                ImageButton img = new ImageButton(this);
+                img.setImageResource(imageArray[playerpanl1.best()]);
+                img.setLayoutParams(new LinearLayout.LayoutParams(80, 160));
+                iv.addView(img);
+            }
+            else if(playerpanl1.Light>0){
+                LinearLayout iv = (LinearLayout) findViewById(player1light);
                 ImageButton img = new ImageButton(this);
                 img.setImageResource(imageArray[playerpanl1.best()]);
                 img.setLayoutParams(new LinearLayout.LayoutParams(80, 160));
@@ -504,15 +532,28 @@ public class MainActivity extends AppCompatActivity {
                 img.setImageResource(imageArray[playerpanl2.best()]);
                 img.setLayoutParams(new LinearLayout.LayoutParams(80, 160));
                 iv.addView(img);
-            } else {
-                LinearLayout iv = (LinearLayout) findViewById(player2pan);
+            } else if(playerpanl2.Dan>0){
+                LinearLayout iv = (LinearLayout) findViewById(player2dan);
                 ImageButton img = new ImageButton(this);
                 img.setImageResource(imageArray[playerpanl2.best()]);
-                img.setLayoutParams(new LinearLayout.LayoutParams(80, 160));
+                img.setLayoutParams(new LinearLayout.LayoutParams(60, 160));
+                iv.addView(img);
+            }
+            else if(playerpanl2.Animal>0){
+                LinearLayout iv = (LinearLayout) findViewById(player2animal);
+                ImageButton img = new ImageButton(this);
+                img.setImageResource(imageArray[playerpanl2.best()]);
+                img.setLayoutParams(new LinearLayout.LayoutParams(60, 160));
+                iv.addView(img);
+            }
+            else if(playerpanl2.Light>0){
+                LinearLayout iv = (LinearLayout) findViewById(player2light);
+                ImageButton img = new ImageButton(this);
+                img.setImageResource(imageArray[playerpanl2.best()]);
+                img.setLayoutParams(new LinearLayout.LayoutParams(60, 160));
                 iv.addView(img);
             }
         }
-        swit++;
         System.out.printf("\n");
 /*
         System.out.printf("player 2 Score : %d \n", player2Score());

@@ -18,7 +18,7 @@ public class Month {
     protected int Dan = 0;
     protected int BiLight = 0;
 
-    public void Card(int a){
+    public void Card(int a){ //점수를 위한 count
         this.a = a;
         /////////////1월
         if(a==1){
@@ -192,7 +192,7 @@ public class Month {
         }
 
     }
-    public int division(){
+    public int division(){ //월구별
 
         /////////////1월
         if(a>0 && a<5){
@@ -243,7 +243,7 @@ public class Month {
             return 12;
         }
     }
-    public int best(){
+    public int best(){ //arraylist에 imageresource를 위한 함수
         /////////////1월
         if(a==1){
             return 1;

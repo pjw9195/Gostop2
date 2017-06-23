@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static com.example.jinwoo.gostop.R.drawable.oneone;
-import static com.example.jinwoo.gostop.R.drawable.twelvefour;
 import static com.example.jinwoo.gostop.R.id.center;
 import static com.example.jinwoo.gostop.R.id.player1;
 import static com.example.jinwoo.gostop.R.id.player1animal;
@@ -28,13 +26,14 @@ import static com.example.jinwoo.gostop.R.id.player2panpi;
 public class MainActivity extends AppCompatActivity {
 
 
-    int[] imageArray = {0, oneone, R.drawable.onetwo, R.drawable.onethree, R.drawable.onefour, R.drawable.twoone, R.drawable.twotwo, R.drawable.twothree,
+    int[] imageArray = {0, R.drawable.oneone, R.drawable.onetwo, R.drawable.onethree, R.drawable.onefour, R.drawable.twoone, R.drawable.twotwo, R.drawable.twothree,
             R.drawable.twofour, R.drawable.threeone, R.drawable.threetwo, R.drawable.threethree, R.drawable.threefour, R.drawable.fourone, R.drawable.fourtwo, R.drawable.fourthree,
             R.drawable.fourfour, R.drawable.fiveone, R.drawable.fivetwo, R.drawable.fivethree, R.drawable.fivefour, R.drawable.sixone, R.drawable.sixtwo, R.drawable.sixthree, R.drawable.sixfour,
             R.drawable.sevenone, R.drawable.seventwo, R.drawable.seventhree, R.drawable.sevenfour, R.drawable.eightone, R.drawable.eighttwo, R.drawable.eightthree, R.drawable.eightfour,
             R.drawable.nineone, R.drawable.ninetwo, R.drawable.ninethree, R.drawable.ninefour, R.drawable.tenone, R.drawable.tentwo, R.drawable.tenthree, R.drawable.tenfour,
-            R.drawable.elevenone, R.drawable.eleventwo, R.drawable.eleventhree, R.drawable.elevenfour, R.drawable.tweleveone, R.drawable.twelvetwo, R.drawable.twelvethree, twelvefour};
+            R.drawable.elevenone, R.drawable.eleventwo, R.drawable.eleventhree, R.drawable.elevenfour, R.drawable.tweleveone, R.drawable.twelvetwo, R.drawable.twelvethree, R.drawable.twelvefour};
 
+    int[] imageArray2 = {0 , R.drawable.oneturn,R.drawable.twoturn , R.drawable.nextturn };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -195,12 +194,7 @@ public class MainActivity extends AppCompatActivity {
 
         return a;
     }
-    public static int swit = 1; //남의패 작동못하게 swit걸어둠
-    ///////////// List프린트함수
-    public void print() {
-        swit++;
-        centerhand = 0;
-        playerhand = 0;
+    public void remove(){//리니어레이아웃을 초기화해 중복으로 넣어지는걸 방지한다.
         LinearLayout de = (LinearLayout) findViewById(center);
         de.removeAllViews();
         de = (LinearLayout) findViewById(player1);
@@ -223,6 +217,35 @@ public class MainActivity extends AppCompatActivity {
         de.removeAllViews();
         de = (LinearLayout) findViewById(player2animal);
         de.removeAllViews(); //layout초기화
+    }
+
+    public static int swit = 1; //남의패 작동못하게 swit걸어둠
+
+    public void nextturn(){
+        LinearLayout iv = (LinearLayout) findViewById(center);
+        ImageButton img = new ImageButton(this);
+        img.setImageResource(imageArray2[3]);
+        img.setLayoutParams(new LinearLayout.LayoutParams(1050, 200));
+        iv.addView(img);
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(swit%2 == 0) {
+                    player1Gostop();
+                }
+                else{
+                    player2Gostop();
+                }
+            }
+        });
+    }
+    ///////////// List프린트함수
+    public void print() {
+        swit++; // 예외처리해주는 함수
+        centerhand = 0;
+        playerhand = 0;
+        //리니어레이아웃을 초기화해 중복으로 넣어지는걸 방지한다.
+        remove();
 
 
         for (int i = 0; i < centerlist.size(); i++) {
@@ -310,19 +333,17 @@ public class MainActivity extends AppCompatActivity {
         System.out.printf("\n");
         System.out.printf("player1 : ");
         for (int i = 0; i < player1list.size(); i++) {
+            if(swit%2 == 0) {
             Month playerl1 = player1list.get(i);
             LinearLayout iv = (LinearLayout) findViewById(player1);
             ImageButton img = new ImageButton(this);
             img.setImageResource(imageArray[playerl1.best()]);
             img.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-            if(swit%2 == 0) {
                 if (i == 0) {
                     img.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-
                             playerhand = 0;
-                            player1Gostop();
                         }
                     });
                 } else if (i == 1) {
@@ -330,7 +351,6 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             playerhand = 1;
-                            player1Gostop();
                         }
                     });
                 } else if (i == 2) {
@@ -338,7 +358,6 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             playerhand = 2;
-                            player1Gostop();
                         }
                     });
                 } else if (i == 9) {
@@ -346,7 +365,6 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             playerhand = 9;
-                            player1Gostop();
                         }
                     });
                 } else if (i == 3) {
@@ -354,7 +372,6 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             playerhand = 3;
-                            player1Gostop();
                         }
                     });
                 } else if (i == 4) {
@@ -362,7 +379,6 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             playerhand = 4;
-                            player1Gostop();
                         }
                     });
                 } else if (i == 5) {
@@ -370,7 +386,6 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             playerhand = 5;
-                            player1Gostop();
                         }
                     });
                 } else if (i == 6) {
@@ -378,7 +393,6 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             playerhand = 6;
-                            player1Gostop();
                         }
                     });
                 } else if (i == 7) {
@@ -386,7 +400,6 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             playerhand = 7;
-                            player1Gostop();
                         }
                     });
                 } else if (i == 8) {
@@ -394,58 +407,72 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             playerhand = 8;
-                            player1Gostop();
                         }
                     });
                 }
+                iv.addView(img);
             }
-            iv.addView(img);
         }
+        if(swit%2==1) { //player2으로 턴을넘기는 imagebutton
+            LinearLayout iv = (LinearLayout) findViewById(player1);
+            ImageButton img = new ImageButton(this);
+            img.setImageResource(imageArray2[2]);
+            img.setLayoutParams(new LinearLayout.LayoutParams(1050, 200));
+            iv.addView(img);
+            img.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    remove();
+                    nextturn();
+                }
+            });
+        }
+
         for (int i = 0; i < player1panlist.size(); i++) {
             Month playerpanl1 = player1panlist.get(i);
             if(playerpanl1.BasicScore>0){
                 LinearLayout iv = (LinearLayout) findViewById(player1panpi);
                 ImageButton img = new ImageButton(this);
                 img.setImageResource(imageArray[playerpanl1.best()]);
-                img.setLayoutParams(new LinearLayout.LayoutParams(80, 160));
+                img.setLayoutParams(new LinearLayout.LayoutParams(70, 160));
                 iv.addView(img);
             }
              else if(playerpanl1.Dan>0){
                 LinearLayout iv = (LinearLayout) findViewById(player1dan);
                 ImageButton img = new ImageButton(this);
                 img.setImageResource(imageArray[playerpanl1.best()]);
-                img.setLayoutParams(new LinearLayout.LayoutParams(80, 160));
+                img.setLayoutParams(new LinearLayout.LayoutParams(70, 160));
                 iv.addView(img);
             }
             else if(playerpanl1.Animal>0){
                 LinearLayout iv = (LinearLayout) findViewById(player1animal);
                 ImageButton img = new ImageButton(this);
                 img.setImageResource(imageArray[playerpanl1.best()]);
-                img.setLayoutParams(new LinearLayout.LayoutParams(80, 160));
+                img.setLayoutParams(new LinearLayout.LayoutParams(70, 160));
                 iv.addView(img);
             }
             else if(playerpanl1.Light>0){
                 LinearLayout iv = (LinearLayout) findViewById(player1light);
                 ImageButton img = new ImageButton(this);
                 img.setImageResource(imageArray[playerpanl1.best()]);
-                img.setLayoutParams(new LinearLayout.LayoutParams(80, 160));
+                img.setLayoutParams(new LinearLayout.LayoutParams(70, 160));
                 iv.addView(img);
             }
 
         }
         for (int i = 0; i < player2list.size(); i++) {
+            if(swit%2 == 1 ) { //상대 패를 못보게할려는 if문
             Month playerl2 = player2list.get(i);
             LinearLayout iv = (LinearLayout) findViewById(player2);
             ImageButton img = new ImageButton(this);
             img.setImageResource(imageArray[playerl2.best()]);
             img.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-            if(swit%2 == 1 ) {
+
                 if (i == 0) {
                     img.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             playerhand = 0;
-                            player1Gostop();
                         }
                     });
                 } else if (i == 1) {
@@ -453,7 +480,6 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             playerhand = 1;
-                            player2Gostop();
                         }
                     });
                 } else if (i == 2) {
@@ -461,7 +487,6 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             playerhand = 2;
-                            player2Gostop();
                         }
                     });
                 } else if (i == 9) {
@@ -469,7 +494,6 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             playerhand = 9;
-                            player2Gostop();
                         }
                     });
                 } else if (i == 3) {
@@ -477,7 +501,6 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             playerhand = 3;
-                            player2Gostop();
                         }
                     });
                 } else if (i == 4) {
@@ -485,7 +508,6 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             playerhand = 4;
-                            player2Gostop();
                         }
                     });
                 } else if (i == 5) {
@@ -493,7 +515,6 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             playerhand = 5;
-                            player2Gostop();
                         }
                     });
                 } else if (i == 6) {
@@ -501,7 +522,6 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             playerhand = 6;
-                            player2Gostop();
                         }
                     });
                 } else if (i == 7) {
@@ -509,7 +529,6 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             playerhand = 7;
-                            player2Gostop();
                         }
                     });
                 } else if (i == 8) {
@@ -517,12 +536,26 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             playerhand = 8;
-                            player2Gostop();
                         }
                     });
                 }
+                iv.addView(img);
             }
+
+        }
+        if(swit%2==0) { //player2으로 턴을넘기는 imagebutton
+            LinearLayout iv = (LinearLayout) findViewById(player2);
+            ImageButton img = new ImageButton(this);
+            img.setImageResource(imageArray2[1]);
+            img.setLayoutParams(new LinearLayout.LayoutParams(1050, 200));
             iv.addView(img);
+            img.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    remove();
+                    nextturn();
+                }
+            });
         }
         for (int i = 0; i < player2panlist.size(); i++) {
             Month playerpanl2 = player2panlist.get(i);
@@ -530,27 +563,27 @@ public class MainActivity extends AppCompatActivity {
                 LinearLayout iv = (LinearLayout) findViewById(player2panpi);
                 ImageButton img = new ImageButton(this);
                 img.setImageResource(imageArray[playerpanl2.best()]);
-                img.setLayoutParams(new LinearLayout.LayoutParams(80, 160));
+                img.setLayoutParams(new LinearLayout.LayoutParams(70, 160));
                 iv.addView(img);
             } else if(playerpanl2.Dan>0){
                 LinearLayout iv = (LinearLayout) findViewById(player2dan);
                 ImageButton img = new ImageButton(this);
                 img.setImageResource(imageArray[playerpanl2.best()]);
-                img.setLayoutParams(new LinearLayout.LayoutParams(60, 160));
+                img.setLayoutParams(new LinearLayout.LayoutParams(70, 160));
                 iv.addView(img);
             }
             else if(playerpanl2.Animal>0){
                 LinearLayout iv = (LinearLayout) findViewById(player2animal);
                 ImageButton img = new ImageButton(this);
                 img.setImageResource(imageArray[playerpanl2.best()]);
-                img.setLayoutParams(new LinearLayout.LayoutParams(60, 160));
+                img.setLayoutParams(new LinearLayout.LayoutParams(70, 160));
                 iv.addView(img);
             }
             else if(playerpanl2.Light>0){
                 LinearLayout iv = (LinearLayout) findViewById(player2light);
                 ImageButton img = new ImageButton(this);
                 img.setImageResource(imageArray[playerpanl2.best()]);
-                img.setLayoutParams(new LinearLayout.LayoutParams(60, 160));
+                img.setLayoutParams(new LinearLayout.LayoutParams(70, 160));
                 iv.addView(img);
             }
         }
@@ -644,32 +677,18 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+    public int distinct() { //centerhand와 playerhand의 같은 월이 없는 조건
 
-    public static int distinct1() { //hand와 center의 같은 월이 없는 조건
-        for (int i = 0; i < centerlist.size(); i++) {
-            Month centerl1 = centerlist.get(i);
-            for (int j = 0; j < player1list.size(); j++) {
-                Month playerl1 = player1list.get(j);
-                if (centerl1.division() == playerl1.division()) {
-                    return 1; //1이면 같은게있고
-                }
-            }
+        Month cen = centerlist.get(centerhand);
+        Month pla = centerlist.get(playerhand);
+        if(cen.division() == pla.division()){
+            return 1;
         }
-        return 2;
-        //2면 같은게없음
-    }
 
-    public static int distinct2() {
-        for (int i = 0; i < centerlist.size(); i++) {
-            Month centerl2 = centerlist.get(i);
-            for (int j = 0; j < player2list.size(); j++) {
-                Month playerl2 = player2list.get(j);
-                if (centerl2.division() == playerl2.division()) {
-                    return 1; //1이면 같은게있고
-                }
-            }
+        else {
+            return 2;
         }
-        return 2;
+        //1이면 같은게있고
         //2면 같은게없음
     }
 
@@ -702,11 +721,11 @@ public class MainActivity extends AppCompatActivity {
     public void player1Gostop() {
         //패 옮기고 삭제하기
         int distinct = 0;
-        distinct = distinct1();
+        distinct = distinct();
 
         if (distinct == 1) {
 
-            if (centerlist != null) { // center 패가 없을때를 위한 if문
+            if (centerlist != null) { // center 패가 있을때를 위한 if문
                 Month center1 = centerlist.get(centerhand);
                 player1panlist.add(center1);
                 centerlist.remove(centerhand);
@@ -714,12 +733,12 @@ public class MainActivity extends AppCompatActivity {
                 Month player1 = player1list.get(playerhand);
                 player1panlist.add(player1);
                 player1list.remove(playerhand);
-            } else if (centerlist == null) {
+            } else if (centerlist == null) { //center패가 없을때를 위한 if문
                 Month player1 = player1list.get(playerhand);
-                player2panlist.add(player1);
                 centerlist.add(player1);
+                player1list.remove(playerhand);
             }
-        } else if (distinct == 2) {
+        } else if (distinct == 2) { //centerhand와 playerhand가 다를경우
 
             Month player1 = player1list.get(playerhand);
             centerlist.add(player1);
@@ -731,7 +750,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void player2Gostop() {
         int distinct = 0;
-        distinct = distinct2();
+        distinct = distinct();
 
         if (distinct == 1) {
 
@@ -739,6 +758,7 @@ public class MainActivity extends AppCompatActivity {
                 Month center2 = centerlist.get(centerhand);
                 player2panlist.add(center2);
                 centerlist.remove(centerhand);
+
                 Month player2 = player2list.get(playerhand);
                 player2panlist.add(player2);
                 player2list.remove(playerhand);
@@ -747,7 +767,7 @@ public class MainActivity extends AppCompatActivity {
                 centerlist.add(player2);
                 player2list.remove(playerhand);
             }
-        } else if (distinct == 2) {
+        } else if (distinct == 2) { //centerhand와 playerhand가 다를경우
 
             Month player2 = player2list.get(playerhand);
             centerlist.add(player2);
@@ -758,315 +778,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 }
-/* public ImageButton GoView(int a){ ////고스톱 이미지버튼화
-         /////////////1월
-         if(a==1){
-             ImageButton oneone = new ImageButton(this);
-             oneone.setImageResource(imageArray[1]);
-             oneone.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-             oneone.setOnClickListener(new View.OnClickListener(){
-                 @Override
-                 public void onClick(View v){
-                    // centerhand =
-                 }
-             });
-             return oneone;
-         }
-         else if(a==2){
-             ImageButton onetwo = new ImageButton(this);
-             onetwo.setImageResource(imageArray[2]);
-             onetwo.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-             return onetwo;
-         }
-         else if(a==3){
-             ImageButton onethree = new ImageButton(this);
-             onethree.setImageResource(imageArray[3]);
-             onethree.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-             return onethree;
-         }
-         else if(a==4){
-             ImageButton onefour = new ImageButton(this);
-             onefour.setImageResource(imageArray[4]);
-             onefour.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-             return onefour;
-         }
-         //////////////2월
-         else if(a==5){
-             ImageButton twoone = new ImageButton(this);
-             twoone.setImageResource(imageArray[5]);
-             twoone.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-             return twoone;
-         }
-         else if(a==6){
-             ImageButton twotwo = new ImageButton(this);
-             twotwo.setImageResource(imageArray[6]);
-             twotwo.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-             return twotwo;
-         }
-         else if(a==7){
-             ImageButton twothree = new ImageButton(this);
-             twothree.setImageResource(imageArray[7]);
-             twothree.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-             return twothree;
-         }
-         else if(a==8){
-             ImageButton twofour = new ImageButton(this);
-             twofour.setImageResource(imageArray[8]);
-             twofour.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-             return twofour;
-         }
-         //////////////3월
-         else if(a==9){
-             ImageButton threeone = new ImageButton(this);
-             threeone.setImageResource(imageArray[9]);
-             threeone.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-             return threeone;
 
-         }
-         else if(a==10){
-             ImageButton threetwo = new ImageButton(this);
-             threetwo.setImageResource(imageArray[10]);
-             threetwo.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-             return threetwo;
-         }
-         else if(a==11){
-             ImageButton threethree = new ImageButton(this);
-             threethree.setImageResource(imageArray[11]);
-             threethree.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-             return threethree;
-         }
-         else if(a==12){
-             ImageButton threefour = new ImageButton(this);
-             threefour.setImageResource(imageArray[12]);
-             threefour.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-             return threefour;
-         }
-         //////////////4월
-         else if(a==13){
-             ImageButton fourone= new ImageButton(this);
-             fourone.setImageResource(imageArray[13]);
-             fourone.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-             return fourone;
-         }
-         else if(a==14){
-             ImageButton fourtwo= new ImageButton(this);
-             fourtwo.setImageResource(imageArray[14]);
-             fourtwo.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-             return fourtwo;
-         }
-         else if(a==15){
-             ImageButton fourthree= new ImageButton(this);
-             fourthree.setImageResource(imageArray[15]);
-             fourthree.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-             return fourthree;
-         }
-         else if(a==16){
-             ImageButton fourfour= new ImageButton(this);
-             fourfour.setImageResource(imageArray[16]);
-             fourfour.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-             return fourfour;
-         }
-         //////////////5월
-         else if(a==17){
-             ImageButton fiveone= new ImageButton(this);
-             fiveone.setImageResource(imageArray[17]);
-             fiveone.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-             return fiveone;
-         }
-         else if(a==18){
-             ImageButton fivetwo= new ImageButton(this);
-             fivetwo.setImageResource(imageArray[18]);
-             fivetwo.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-             return fivetwo;
-         }
-         else if(a==19){
-             ImageButton fivethree= new ImageButton(this);
-             fivethree.setImageResource(imageArray[19]);
-             fivethree.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-             return fivethree;
-         }
-         else if(a==20){
-             ImageButton fivefour= new ImageButton(this);
-             fivefour.setImageResource(imageArray[20]);
-             fivefour.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-             return fivefour;
-         }
-         //////////////6월
-         else if(a==21){
-             ImageButton sixone= new ImageButton(this);
-             sixone.setImageResource(imageArray[21]);
-             sixone.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-             return sixone;
-         }
-         else if(a==22){
-             ImageButton sixtwo= new ImageButton(this);
-             sixtwo.setImageResource(imageArray[22]);
-             sixtwo.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-             return sixtwo;
-         }
-         else if(a==23){
-             ImageButton sixthree= new ImageButton(this);
-             sixthree.setImageResource(imageArray[23]);
-             sixthree.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-             return sixthree;
-         }
-         else if(a==24){
-             ImageButton sixfour= new ImageButton(this);
-             sixfour.setImageResource(imageArray[24]);
-             sixfour.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-             return sixfour;
-         }
-         //////////////7월
-         else if(a==25){
-             ImageButton sevenone= new ImageButton(this);
-             sevenone.setImageResource(imageArray[25]);
-             sevenone.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-             return sevenone;
-         }
-         else if(a==26){
-             ImageButton seventwo= new ImageButton(this);
-             seventwo.setImageResource(imageArray[26]);
-             seventwo.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-             return seventwo;
-         }
-         else if(a==27){
-             ImageButton seventhree= new ImageButton(this);
-             seventhree.setImageResource(imageArray[27]);
-             seventhree.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-             return seventhree;
-         }
-         else if(a==28){
-             ImageButton sevenfour= new ImageButton(this);
-             sevenfour.setImageResource(imageArray[28]);
-             sevenfour.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-             return sevenfour;
-         }
-         //////////////8월
-         else if(a==29){
-             ImageButton eightone= new ImageButton(this);
-             eightone.setImageResource(imageArray[29]);
-             eightone.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-             return eightone;
-         }
-         else if(a==30){
-             ImageButton eighttwo= new ImageButton(this);
-             eighttwo.setImageResource(imageArray[30]);
-             eighttwo.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-             return eighttwo;
-         }
-         else if(a==31){
-             ImageButton eightthree= new ImageButton(this);
-             eightthree.setImageResource(imageArray[31]);
-             eightthree.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-             return eightthree;
-         }
-         else if(a==32){
-             ImageButton eightfour= new ImageButton(this);
-             eightfour.setImageResource(imageArray[32]);
-             eightfour.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-             return eightfour;
-         }
-         //////////////9월
-         else if(a==33){
-             ImageButton nineone= new ImageButton(this);
-             nineone.setImageResource(imageArray[33]);
-             nineone.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-             return nineone;
-         }
-         else if(a==34){
-             ImageButton ninetwo= new ImageButton(this);
-             ninetwo.setImageResource(imageArray[34]);
-             ninetwo.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-             return ninetwo;
-         }
-         else if(a==35){
-             ImageButton ninethree= new ImageButton(this);
-             ninethree.setImageResource(imageArray[35]);
-             ninethree.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-             return ninethree;
-         }
-         else if(a==36){
-             ImageButton ninefour= new ImageButton(this);
-             ninefour.setImageResource(imageArray[36]);
-             ninefour.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-             return ninefour;
-         }
-         //////////////10월
-         else if(a==37){
-             ImageButton tenone= new ImageButton(this);
-             tenone.setImageResource(imageArray[37]);
-             tenone.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-             return tenone;
-         }
-         else if(a==38){
-             ImageButton tentwo= new ImageButton(this);
-             tentwo.setImageResource(imageArray[38]);
-             tentwo.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-             return tentwo;
-         }
-         else if(a==39){
-             ImageButton tenthree= new ImageButton(this);
-             tenthree.setImageResource(imageArray[39]);
-             tenthree.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-             return tenthree;
-         }
-         else if(a==40){
-             ImageButton tenfour= new ImageButton(this);
-             tenfour.setImageResource(imageArray[40]);
-             tenfour.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-             return tenfour;
-         }
-         //////////////11월
-         else if(a==41){
-             ImageButton elevenone= new ImageButton(this);
-             elevenone.setImageResource(imageArray[41]);
-             elevenone.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-             return elevenone;
-         }
-         else if(a==42){
-             ImageButton eleventwo= new ImageButton(this);
-             eleventwo.setImageResource(imageArray[42]);
-             eleventwo.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-             return eleventwo;
-         }
-         else if(a==43){
-             ImageButton eleventhree= new ImageButton(this);
-             eleventhree.setImageResource(imageArray[43]);
-             eleventhree.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-             return eleventhree;
-         }
-         else if(a==44){
-             ImageButton elevenfour= new ImageButton(this);
-             elevenfour.setImageResource(imageArray[44]);
-             elevenfour.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-             return elevenfour;
-         }
-         //////////////12월
-         else if(a==45){
-             ImageButton tweleveone= new ImageButton(this);
-             tweleveone.setImageResource(imageArray[45]);
-             tweleveone.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-             return tweleveone;
-         }
-         else if(a==46){
-             ImageButton twelvetwo= new ImageButton(this);
-             twelvetwo.setImageResource(imageArray[46]);
-             twelvetwo.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-             return twelvetwo;
-         }
-         else if(a==47){
-             ImageButton twelvethree= new ImageButton(this);
-             twelvethree.setImageResource(imageArray[47]);
-             twelvethree.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-             return twelvethree;
-         }
-         else{
-             ImageButton twelvefour= new ImageButton(this);
-             twelvefour.setImageResource(imageArray[48]);
-             twelvefour.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-             return twelvefour;
-         }
-     }*/
+
 
 
 

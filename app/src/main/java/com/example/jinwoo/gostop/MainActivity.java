@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /////////////중복방지하면서 뽑는 랜덤변수
-    public static int Count() {
+    public int Count() {
         Random random = new Random();
         boolean shift = true;
         int a = 0;
@@ -221,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static int swit = 1; //남의패 작동못하게 swit걸어둠
 
-    public void nextturn(){
+    public void nextturn(){ //turn을 주고받고하기위해 중간에 텀을두는 이미지버튼을 만든다.
         LinearLayout iv = (LinearLayout) findViewById(center);
         ImageButton img = new ImageButton(this);
         img.setImageResource(imageArray2[3]);
@@ -587,11 +587,10 @@ public class MainActivity extends AppCompatActivity {
                 iv.addView(img);
             }
         }
-        System.out.printf("\n");
-/*
+
         System.out.printf("player 2 Score : %d \n", player2Score());
         /////////////////////
-        if (player1Score() > 6 && player1ps != player1Score()) { //Go stop (Two GO까지만 구현)
+        if (player1Score() > 6 && player1ps != player1Score()) { //Go stop (Two GO까지만 구현) //if문 안에는 고를 했는데 점수가 안바뀌었는데 나오는걸 방지!
             System.out.printf("\n palyer1: 1. Go 2. Stop");
             //int select = sc.nextInt();
             if (select == 1) {
@@ -630,75 +629,74 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         player2ps = player2Score();
-*/
+
     }
 
     //center패 한장 까지고 그 중에 같은월 있으면 가져온다.
-    public static void center1() {
+    public void center() {
         //패한장생성
         Month card = new Month();
         int count = Count();
         card.Card(count);
-
-        for (int i = 0; i < centerlist.size(); i++) {
-            Month centerl1 = centerlist.get(i);
-            if (card.division() == centerl1.division()) {
-                player1panlist.add(card);
-                player1panlist.add(centerl1);
-                centerlist.remove(i);
-                break;
-            }
-            if (i == centerlist.size() - 1) {
-                centerlist.add(card);
-                break;
+        if(swit %2 == 0){
+            for (int i = 0; i < centerlist.size(); i++) {
+                Month centerl1 = centerlist.get(i);
+                if (card.division() == centerl1.division()) {
+                    player1panlist.add(card);
+                    player1panlist.add(centerl1);
+                    centerlist.remove(i);
+                    break;
+                }
+                if (i == centerlist.size() - 1) {
+                    centerlist.add(card);
+                    break;
+                }
             }
         }
-
-
-    }
-
-    public static void center2() {
-        //패한장생성
-        Month card = new Month();
-        int count = Count();
-        card.Card(count);
-
-        for (int i = 0; i < centerlist.size(); i++) {
-            Month centerl1 = centerlist.get(i);
-            if (card.division() == centerl1.division()) {
-                player2panlist.add(card);
-                player2panlist.add(centerl1);
-                centerlist.remove(i);
-                break;
-            }
-            if (i == centerlist.size() - 1) {
-                centerlist.add(card);
-                break;
+        else {
+            for (int i = 0; i < centerlist.size(); i++) {
+                Month centerl1 = centerlist.get(i);
+                if (card.division() == centerl1.division()) {
+                    player2panlist.add(card);
+                    player2panlist.add(centerl1);
+                    centerlist.remove(i);
+                    break;
+                }
+                if (i == centerlist.size() - 1) { //만약같지않다면 마지막에 centerlist에 추가!
+                    centerlist.add(card);
+                    break;
+                }
             }
         }
     }
     public int distinct() { //centerhand와 playerhand의 같은 월이 없는 조건
-
-        Month cen = centerlist.get(centerhand);
-        Month pla = centerlist.get(playerhand);
-        if(cen.division() == pla.division()){
-            return 1;
+        if(swit%2 == 0) {
+            Month cen = centerlist.get(centerhand);
+            Month pla = player1list.get(playerhand);
+            if (cen.division() == pla.division()) {
+                return 1;
+            } else {
+                return 2;
+            }
+        } else {
+            Month cen = centerlist.get(centerhand);
+            Month pla = player2list.get(playerhand);
+            if (cen.division() == pla.division()) {
+                return 1;
+            } else {
+                return 2;
+            }
+            //1이면 같은게있고
+            //2면 같은게없음
         }
-
-        else {
-            return 2;
-        }
-        //1이면 같은게있고
-        //2면 같은게없음
     }
-
     //////////////////////////////////////
     ////처음
     public void startGostop() {
         for (int i = 0; i < 7; i++) {
             Month card = new Month();
-            int count = Count();
-            card.Card(count);
+            int count = Count(); //중복안되게 뽑고
+            card.Card(count); //그 정수를 객체 안에 정보를 넣는다.
             centerlist.add(card);
         }
         System.out.printf(" \n");
@@ -744,7 +742,7 @@ public class MainActivity extends AppCompatActivity {
             centerlist.add(player1);
             player1list.remove(playerhand);
         }
-        center1();
+        center();
         print();
     }
 
@@ -773,7 +771,7 @@ public class MainActivity extends AppCompatActivity {
             centerlist.add(player2);
             player2list.remove(playerhand);
         }
-        center2();
+        center();
         print();
 
     }

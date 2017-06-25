@@ -252,7 +252,7 @@ public class MainActivity extends AppCompatActivity {
         text2.setTextColor(Color.parseColor(strColor));
         text2.setBackgroundColor(0xFF12FF45);
         if(swit%2 == 0) {
-            player2ts = player2ts + player2Score();
+            player1ts = player1ts + player1Score();
             text2.setText("player1 win! totalscore : " + player1ts);
         }else{
             player2ts = player2ts + player2Score();
@@ -304,7 +304,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void nextturn(){ //turn을 주고받고하기위해 중간에 텀을두는 이미지버튼을 만든다.
-
+        remove();
         LinearLayout iv = (LinearLayout) findViewById(center);
         ImageButton img = new ImageButton(this);
         img.setImageResource(imageArray2[3]);
@@ -407,88 +407,87 @@ public class MainActivity extends AppCompatActivity {
 
             iv.addView(img);
         }
-
-        System.out.printf("\n");
-        System.out.printf("player1 : ");
-        for (int i = 0; i < player1list.size(); i++) {
-            if(swit%2 == 0) {
-            Month playerl1 = player1list.get(i);
-            LinearLayout iv = (LinearLayout) findViewById(player1);
-            ImageButton img = new ImageButton(this);
-            img.setImageResource(imageArray[playerl1.best()]);
-            img.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-                if (i == 0) {
-                    img.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            playerhand = 0;
-                        }
-                    });
-                } else if (i == 1) {
-                    img.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            playerhand = 1;
-                        }
-                    });
-                } else if (i == 2) {
-                    img.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            playerhand = 2;
-                        }
-                    });
-                } else if (i == 9) {
-                    img.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            playerhand = 9;
-                        }
-                    });
-                } else if (i == 3) {
-                    img.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            playerhand = 3;
-                        }
-                    });
-                } else if (i == 4) {
-                    img.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            playerhand = 4;
-                        }
-                    });
-                } else if (i == 5) {
-                    img.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            playerhand = 5;
-                        }
-                    });
-                } else if (i == 6) {
-                    img.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            playerhand = 6;
-                        }
-                    });
-                } else if (i == 7) {
-                    img.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            playerhand = 7;
-                        }
-                    });
-                } else if (i == 8) {
-                    img.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            playerhand = 8;
-                        }
-                    });
+        if(!player1list.isEmpty()) {
+            for (int i = 0; i < player1list.size(); i++) {
+                if (swit % 2 == 0) {
+                    Month playerl1 = player1list.get(i);
+                    LinearLayout iv = (LinearLayout) findViewById(player1);
+                    ImageButton img = new ImageButton(this);
+                    img.setImageResource(imageArray[playerl1.best()]);
+                    img.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
+                    if (i == 0) {
+                        img.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                playerhand = 0;
+                            }
+                        });
+                    } else if (i == 1) {
+                        img.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                playerhand = 1;
+                            }
+                        });
+                    } else if (i == 2) {
+                        img.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                playerhand = 2;
+                            }
+                        });
+                    } else if (i == 9) {
+                        img.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                playerhand = 9;
+                            }
+                        });
+                    } else if (i == 3) {
+                        img.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                playerhand = 3;
+                            }
+                        });
+                    } else if (i == 4) {
+                        img.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                playerhand = 4;
+                            }
+                        });
+                    } else if (i == 5) {
+                        img.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                playerhand = 5;
+                            }
+                        });
+                    } else if (i == 6) {
+                        img.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                playerhand = 6;
+                            }
+                        });
+                    } else if (i == 7) {
+                        img.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                playerhand = 7;
+                            }
+                        });
+                    } else if (i == 8) {
+                        img.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                playerhand = 8;
+                            }
+                        });
+                    }
+                    iv.addView(img);
                 }
-                iv.addView(img);
             }
         }
         if(swit%2==1) { //player2->next으로 턴을넘기는 imagebutton gostop이 가능하다면? gostop 화면으로
@@ -549,88 +548,89 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
-        for (int i = 0; i < player2list.size(); i++) {
-            if(swit%2 == 1 ) { //상대 패를 못보게할려는 if문
-            Month playerl2 = player2list.get(i);
-            LinearLayout iv = (LinearLayout) findViewById(player2);
-            ImageButton img = new ImageButton(this);
-            img.setImageResource(imageArray[playerl2.best()]);
-            img.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
+        if(!player2list.isEmpty()) {
+            for (int i = 0; i < player2list.size(); i++) {
+                if (swit % 2 == 1) { //상대 패를 못보게할려는 if문
+                    Month playerl2 = player2list.get(i);
+                    LinearLayout iv = (LinearLayout) findViewById(player2);
+                    ImageButton img = new ImageButton(this);
+                    img.setImageResource(imageArray[playerl2.best()]);
+                    img.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
 
-                if (i == 0) {
-                    img.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            playerhand = 0;
-                        }
-                    });
-                } else if (i == 1) {
-                    img.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            playerhand = 1;
-                        }
-                    });
-                } else if (i == 2) {
-                    img.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            playerhand = 2;
-                        }
-                    });
-                } else if (i == 9) {
-                    img.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            playerhand = 9;
-                        }
-                    });
-                } else if (i == 3) {
-                    img.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            playerhand = 3;
-                        }
-                    });
-                } else if (i == 4) {
-                    img.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            playerhand = 4;
-                        }
-                    });
-                } else if (i == 5) {
-                    img.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            playerhand = 5;
-                        }
-                    });
-                } else if (i == 6) {
-                    img.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            playerhand = 6;
-                        }
-                    });
-                } else if (i == 7) {
-                    img.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            playerhand = 7;
-                        }
-                    });
-                } else if (i == 8) {
-                    img.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            playerhand = 8;
-                        }
-                    });
+                    if (i == 0) {
+                        img.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                playerhand = 0;
+                            }
+                        });
+                    } else if (i == 1) {
+                        img.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                playerhand = 1;
+                            }
+                        });
+                    } else if (i == 2) {
+                        img.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                playerhand = 2;
+                            }
+                        });
+                    } else if (i == 9) {
+                        img.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                playerhand = 9;
+                            }
+                        });
+                    } else if (i == 3) {
+                        img.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                playerhand = 3;
+                            }
+                        });
+                    } else if (i == 4) {
+                        img.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                playerhand = 4;
+                            }
+                        });
+                    } else if (i == 5) {
+                        img.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                playerhand = 5;
+                            }
+                        });
+                    } else if (i == 6) {
+                        img.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                playerhand = 6;
+                            }
+                        });
+                    } else if (i == 7) {
+                        img.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                playerhand = 7;
+                            }
+                        });
+                    } else if (i == 8) {
+                        img.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                playerhand = 8;
+                            }
+                        });
+                    }
+                    iv.addView(img);
                 }
-                iv.addView(img);
             }
-
         }
         if(swit%2==0) { //player1->next으로 턴을넘기는 imagebutton
             LinearLayout iv = (LinearLayout) findViewById(player2);
@@ -690,53 +690,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void countScore(){
-
-        System.out.printf("player 2 Score : %d \n", player2Score());
-        /////////////////////
-        if (player1Score() > 6 && player1ps != player1Score()) { //Go stop (Two GO까지만 구현) //if문 안에는 고를 했는데 점수가 안바뀌었는데 나오는걸 방지!
-            System.out.printf("\n palyer1: 1. Go 2. Stop");
-            remove();
-            Gostopview();
-            if (select == 1) {
-                if (player1ts == 1) {
-                    System.out.print("\n player1: Two go");
-                } else if (player1ts == 0) {
-
-                    System.out.print("\n player1: one go");
-                }
-                player1ts = player1ts + 1;
-            } else {
-                player1ts = player1ts + player1Score();
-                System.out.printf("\n Total Score : %d ", player1ts);
-                System.out.printf("\n player1 win ");
-                System.exit(0);
-            }
-        }
-        player1ps = player1Score();
-
-        if (player2Score() > 6 && player2ps != player2Score()) { // Go stop
-            System.out.printf("\n palyer2: 1. Go 2. Stop");
-            //int select = sc.nextInt();
-            if (select == 1) {
-                if (player2ts == 1) {
-                    System.out.print("\n player2: Two go");
-                } else if (player2ts == 0) {
-
-                    System.out.print("\n player2: one go");
-                }
-                player2ts = player2ts + 1;
-            } else {
-                player2ts = player2ts + player2Score();
-                System.out.printf("\n Total Score : %d ", player2ts);
-                System.out.printf("\n player2 win ");
-                System.exit(0);
-            }
-        }
-        player2ps = player2Score();
-    }
-
-
     //center패 한장 까지고 그 중에 같은월 있으면 가져온다.
     public void center() {
         //패한장생성
@@ -775,24 +728,29 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     public int distinct() { //centerhand와 playerhand의 같은 월이 없는 조건
-        if(swit%2 == 0) {
-            Month cen = centerlist.get(centerhand);
-            Month pla = player1list.get(playerhand);
-            if (cen.division() == pla.division()) {
-                return 1;
+        if(centerlist.isEmpty()) {
+            return 1;
+        }
+        else {
+            if (swit % 2 == 0) {
+                Month cen = centerlist.get(centerhand);
+                Month pla = player1list.get(playerhand);
+                if (cen.division() == pla.division()) {
+                    return 1;
+                } else {
+                    return 2;
+                }
             } else {
-                return 2;
+                Month cen = centerlist.get(centerhand);
+                Month pla = player2list.get(playerhand);
+                if (cen.division() == pla.division()) {
+                    return 1;
+                } else {
+                    return 2;
+                }
+                //1이면 같은게있고
+                //2면 같은게없음
             }
-        } else {
-            Month cen = centerlist.get(centerhand);
-            Month pla = player2list.get(playerhand);
-            if (cen.division() == pla.division()) {
-                return 1;
-            } else {
-                return 2;
-            }
-            //1이면 같은게있고
-            //2면 같은게없음
         }
     }
     //////////////////////////////////////
@@ -821,60 +779,61 @@ public class MainActivity extends AppCompatActivity {
         scoreview();
         print();
     }
-
+    public static int distinct = 0;
     public void player1Gostop() { //player1 패를 list에 더해주고 뺀다.
         //패 옮기고 삭제하기
-        int distinct = 0;
+        if(!player1list.isEmpty()) {
         distinct = distinct();
+            if (distinct == 1) {
 
-        if (distinct == 1) {
+                if (!centerlist.isEmpty()) { // center 패가 있을때를 위한 if문
+                    Month center1 = centerlist.get(centerhand);
+                    player1panlist.add(center1);
+                    centerlist.remove(centerhand);
 
-            if (centerlist != null) { // center 패가 있을때를 위한 if문
-                Month center1 = centerlist.get(centerhand);
-                player1panlist.add(center1);
-                centerlist.remove(centerhand);
+                    Month player1 = player1list.get(playerhand);
+                    player1panlist.add(player1);
+                    player1list.remove(playerhand);
+                } else if (centerlist.isEmpty()) { //center패가 없을때를 위한 if문
+                    Month player1 = player1list.get(playerhand);
+                    centerlist.add(player1);
+                    player1list.remove(playerhand);
+                }
+            } else if (distinct == 2) { //centerhand와 playerhand가 다를경우
 
-                Month player1 = player1list.get(playerhand);
-                player1panlist.add(player1);
-                player1list.remove(playerhand);
-            } else if (centerlist == null) { //center패가 없을때를 위한 if문
                 Month player1 = player1list.get(playerhand);
                 centerlist.add(player1);
                 player1list.remove(playerhand);
             }
-        } else if (distinct == 2) { //centerhand와 playerhand가 다를경우
-
-            Month player1 = player1list.get(playerhand);
-            centerlist.add(player1);
-            player1list.remove(playerhand);
         }
         center();
     }
 
     public void player2Gostop() { //player1 패를 list에 더해주고 뺀다.
+        if(!player2list.isEmpty()) {
         int distinct = 0;
         distinct = distinct();
+            if (distinct == 1) {
 
-        if (distinct == 1) {
+                if (centerlist != null) { // center 패가 없을때를 위한 if문
+                    Month center2 = centerlist.get(centerhand);
+                    player2panlist.add(center2);
+                    centerlist.remove(centerhand);
 
-            if (centerlist != null) { // center 패가 없을때를 위한 if문
-                Month center2 = centerlist.get(centerhand);
-                player2panlist.add(center2);
-                centerlist.remove(centerhand);
+                    Month player2 = player2list.get(playerhand);
+                    player2panlist.add(player2);
+                    player2list.remove(playerhand);
+                } else if (centerlist == null) {
+                    Month player2 = player2list.get(playerhand);
+                    centerlist.add(player2);
+                    player2list.remove(playerhand);
+                }
+            } else if (distinct == 2) { //centerhand와 playerhand가 다를경우
 
-                Month player2 = player2list.get(playerhand);
-                player2panlist.add(player2);
-                player2list.remove(playerhand);
-            } else if (centerlist == null) {
                 Month player2 = player2list.get(playerhand);
                 centerlist.add(player2);
                 player2list.remove(playerhand);
             }
-        } else if (distinct == 2) { //centerhand와 playerhand가 다를경우
-
-            Month player2 = player2list.get(playerhand);
-            centerlist.add(player2);
-            player2list.remove(playerhand);
         }
         center();
     }

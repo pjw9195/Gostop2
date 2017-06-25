@@ -1,15 +1,18 @@
 package com.example.jinwoo.gostop;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static com.example.jinwoo.gostop.R.id.Score;
 import static com.example.jinwoo.gostop.R.id.center;
 import static com.example.jinwoo.gostop.R.id.player1;
 import static com.example.jinwoo.gostop.R.id.player1animal;
@@ -220,8 +223,88 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static int swit = 1; //남의패 작동못하게 swit걸어둠
+    public void scoreview(){ //score textview로 부르는함수
+        TextView text = new TextView(this);
+        LinearLayout iv = (LinearLayout) findViewById(Score);
+        text.setLayoutParams(new LinearLayout.LayoutParams(500, 100));
+        text.setPadding(10, 10, 10, 10);
+        text.setTextSize(20);
+        text.setText("player1: " + player1Score());
+        iv.addView(text);
+
+        TextView text1 = new TextView(this);
+        LinearLayout iv1 = (LinearLayout) findViewById(Score);
+        text1.setLayoutParams(new LinearLayout.LayoutParams(500, 100));
+        text1.setPadding(10, 10, 10, 10);
+        text1.setTextSize(20);
+        text1.setText("player2: " + player2Score());
+        iv1.addView(text1);
+    }
+    public static int select = 100;
+    public void stop(){
+        remove();
+        TextView text2 = new TextView(this);
+        LinearLayout iv1 = (LinearLayout) findViewById(center);
+        text2.setLayoutParams(new LinearLayout.LayoutParams(1000, 100));
+        text2.setPadding(10, 10, 10, 10);
+        text2.setTextSize(23);
+        String strColor = "#CC3333";
+        text2.setTextColor(Color.parseColor(strColor));
+        text2.setBackgroundColor(0xFF12FF45);
+        if(swit%2 == 0) {
+            player2ts = player2ts + player2Score();
+            text2.setText("player1 win! totalscore : " + player1ts);
+        }else{
+            player2ts = player2ts + player2Score();
+            text2.setText("player2 win! totalscore : " + player2ts);
+        }
+        iv1.addView(text2);
+    }
+    public void Go(){
+        if(swit%2 == 0) {
+            player1ts = player1ts + 1;
+            nextturn();
+        }else{
+            player2ts = player2ts + 1;
+            nextturn();
+        }
+
+    }
+    public void Gostopview(){
+        remove();
+        TextView text = new TextView(this);
+        LinearLayout iv = (LinearLayout) findViewById(center);
+        text.setLayoutParams(new LinearLayout.LayoutParams(500, 100));
+        text.setTextSize(23);
+        text.setText("   1.Go");
+        String strColor = "#EEEEEE";
+        text.setTextColor(Color.parseColor(strColor));
+        text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Go();
+            }
+        });
+        iv.addView(text);
+
+        TextView text1 = new TextView(this);
+        LinearLayout iv1 = (LinearLayout) findViewById(center);
+        text1.setLayoutParams(new LinearLayout.LayoutParams(500, 100));
+        text1.setTextSize(23);
+        text1.setText("2.Stop");
+        String strColor3 = "#EEEEEE";
+        text1.setTextColor(Color.parseColor(strColor3));
+        text1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stop();
+            }
+        });
+        iv1.addView(text1);
+    }
 
     public void nextturn(){ //turn을 주고받고하기위해 중간에 텀을두는 이미지버튼을 만든다.
+
         LinearLayout iv = (LinearLayout) findViewById(center);
         ImageButton img = new ImageButton(this);
         img.setImageResource(imageArray2[3]);
@@ -230,12 +313,7 @@ public class MainActivity extends AppCompatActivity {
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(swit%2 == 0) {
-                    player1Gostop();
-                }
-                else{
-                    player2Gostop();
-                }
+                    print();
             }
         });
     }
@@ -413,7 +491,7 @@ public class MainActivity extends AppCompatActivity {
                 iv.addView(img);
             }
         }
-        if(swit%2==1) { //player2으로 턴을넘기는 imagebutton
+        if(swit%2==1) { //player2->next으로 턴을넘기는 imagebutton gostop이 가능하다면? gostop 화면으로
             LinearLayout iv = (LinearLayout) findViewById(player1);
             ImageButton img = new ImageButton(this);
             img.setImageResource(imageArray2[2]);
@@ -423,7 +501,18 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     remove();
-                    nextturn();
+                    player2Gostop();
+
+                    LinearLayout de = (LinearLayout) findViewById(Score);
+                    de.removeAllViews();
+                    scoreview(); //score textview로 불러오는함수
+
+                    if (player2Score() > 6 && player2ps != player2Score() ) { //if문 안에는 고를 했는데 점수가 안바뀌었는데 나오는걸 방지!
+                        Gostopview();
+                    }
+                    else {
+                        nextturn();
+                    }
                 }
             });
         }
@@ -434,28 +523,28 @@ public class MainActivity extends AppCompatActivity {
                 LinearLayout iv = (LinearLayout) findViewById(player1panpi);
                 ImageButton img = new ImageButton(this);
                 img.setImageResource(imageArray[playerpanl1.best()]);
-                img.setLayoutParams(new LinearLayout.LayoutParams(70, 160));
+                img.setLayoutParams(new LinearLayout.LayoutParams(60, 140));
                 iv.addView(img);
             }
              else if(playerpanl1.Dan>0){
                 LinearLayout iv = (LinearLayout) findViewById(player1dan);
                 ImageButton img = new ImageButton(this);
                 img.setImageResource(imageArray[playerpanl1.best()]);
-                img.setLayoutParams(new LinearLayout.LayoutParams(70, 160));
+                img.setLayoutParams(new LinearLayout.LayoutParams(60, 140));
                 iv.addView(img);
             }
             else if(playerpanl1.Animal>0){
                 LinearLayout iv = (LinearLayout) findViewById(player1animal);
                 ImageButton img = new ImageButton(this);
                 img.setImageResource(imageArray[playerpanl1.best()]);
-                img.setLayoutParams(new LinearLayout.LayoutParams(70, 160));
+                img.setLayoutParams(new LinearLayout.LayoutParams(60, 140));
                 iv.addView(img);
             }
             else if(playerpanl1.Light>0){
                 LinearLayout iv = (LinearLayout) findViewById(player1light);
                 ImageButton img = new ImageButton(this);
                 img.setImageResource(imageArray[playerpanl1.best()]);
-                img.setLayoutParams(new LinearLayout.LayoutParams(70, 160));
+                img.setLayoutParams(new LinearLayout.LayoutParams(60, 140));
                 iv.addView(img);
             }
 
@@ -543,7 +632,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
-        if(swit%2==0) { //player2으로 턴을넘기는 imagebutton
+        if(swit%2==0) { //player1->next으로 턴을넘기는 imagebutton
             LinearLayout iv = (LinearLayout) findViewById(player2);
             ImageButton img = new ImageButton(this);
             img.setImageResource(imageArray2[1]);
@@ -553,7 +642,19 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     remove();
-                    nextturn();
+                    player1Gostop();
+
+                    LinearLayout de = (LinearLayout) findViewById(Score);
+                    de.removeAllViews();
+                    scoreview(); //score textview로 불러오는함수
+
+                    if (player1Score() > 6 && player1ps != player1Score()) { //if문 안에는 고를 했는데 점수가 안바뀌었는데 나오는걸 방지!
+                        Gostopview();
+                        player1ps = player1Score(); //pastscore 지난 스코어로 go가 다시 오는걸방지!
+                    }else {
+                        nextturn();
+                        player1ps = player1Score();
+                    }
                 }
             });
         }
@@ -563,36 +664,40 @@ public class MainActivity extends AppCompatActivity {
                 LinearLayout iv = (LinearLayout) findViewById(player2panpi);
                 ImageButton img = new ImageButton(this);
                 img.setImageResource(imageArray[playerpanl2.best()]);
-                img.setLayoutParams(new LinearLayout.LayoutParams(70, 160));
+                img.setLayoutParams(new LinearLayout.LayoutParams(60, 140));
                 iv.addView(img);
             } else if(playerpanl2.Dan>0){
                 LinearLayout iv = (LinearLayout) findViewById(player2dan);
                 ImageButton img = new ImageButton(this);
                 img.setImageResource(imageArray[playerpanl2.best()]);
-                img.setLayoutParams(new LinearLayout.LayoutParams(70, 160));
+                img.setLayoutParams(new LinearLayout.LayoutParams(60, 140));
                 iv.addView(img);
             }
             else if(playerpanl2.Animal>0){
                 LinearLayout iv = (LinearLayout) findViewById(player2animal);
                 ImageButton img = new ImageButton(this);
                 img.setImageResource(imageArray[playerpanl2.best()]);
-                img.setLayoutParams(new LinearLayout.LayoutParams(70, 160));
+                img.setLayoutParams(new LinearLayout.LayoutParams(60, 140));
                 iv.addView(img);
             }
             else if(playerpanl2.Light>0){
                 LinearLayout iv = (LinearLayout) findViewById(player2light);
                 ImageButton img = new ImageButton(this);
                 img.setImageResource(imageArray[playerpanl2.best()]);
-                img.setLayoutParams(new LinearLayout.LayoutParams(70, 160));
+                img.setLayoutParams(new LinearLayout.LayoutParams(60, 140));
                 iv.addView(img);
             }
         }
+    }
+
+    public void countScore(){
 
         System.out.printf("player 2 Score : %d \n", player2Score());
         /////////////////////
         if (player1Score() > 6 && player1ps != player1Score()) { //Go stop (Two GO까지만 구현) //if문 안에는 고를 했는데 점수가 안바뀌었는데 나오는걸 방지!
             System.out.printf("\n palyer1: 1. Go 2. Stop");
-            //int select = sc.nextInt();
+            remove();
+            Gostopview();
             if (select == 1) {
                 if (player1ts == 1) {
                     System.out.print("\n player1: Two go");
@@ -629,8 +734,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         player2ps = player2Score();
-
     }
+
 
     //center패 한장 까지고 그 중에 같은월 있으면 가져온다.
     public void center() {
@@ -713,10 +818,11 @@ public class MainActivity extends AppCompatActivity {
             card.Card(count);
             player2list.add(card);
         }
+        scoreview();
         print();
     }
 
-    public void player1Gostop() {
+    public void player1Gostop() { //player1 패를 list에 더해주고 뺀다.
         //패 옮기고 삭제하기
         int distinct = 0;
         distinct = distinct();
@@ -743,10 +849,9 @@ public class MainActivity extends AppCompatActivity {
             player1list.remove(playerhand);
         }
         center();
-        print();
     }
 
-    public void player2Gostop() {
+    public void player2Gostop() { //player1 패를 list에 더해주고 뺀다.
         int distinct = 0;
         distinct = distinct();
 
@@ -772,8 +877,6 @@ public class MainActivity extends AppCompatActivity {
             player2list.remove(playerhand);
         }
         center();
-        print();
-
     }
 }
 
